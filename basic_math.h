@@ -21,16 +21,24 @@ typedef struct {
    float E4;
 } vector4;
 
+// NOTE: Matrices store elements in column-major order, e.g. E00, E10, E20
+// represents
 typedef struct {
-   float E[4];
+   float E00, E10;
+   float E01, E11;
 } matrix2;
 
 typedef struct {
-   float E[9];
+   float E00, E10, E20;
+   float E01, E11, E21;
+   float E02, E12, E22;
 } matrix3;
 
 typedef struct {
-   float E[16];
+   float E00, E10, E20, E30;
+   float E01, E11, E21, E31;
+   float E02, E12, E22, E32;
+   float E03, E13, E23, E33;
 } matrix4;
 
 #define TAU32 6.2831853f
@@ -197,7 +205,7 @@ float Length_Vector4(vector4 Vector)
 static inline
 vector2 Normalize_Vector2(vector2 Vector)
 {
-   vector2 Result = {0};
+   vector2 Result = {0, 0};
 
    float Norm = Length_Vector2(Vector);
    if(Norm != 0.0f)
@@ -211,7 +219,7 @@ vector2 Normalize_Vector2(vector2 Vector)
 static inline
 vector3 Normalize_Vector3(vector3 Vector)
 {
-   vector3 Result = {0};
+   vector3 Result = {0, 0, 0};
 
    float Norm = Length_Vector3(Vector);
    if(Norm != 0.0f)
@@ -226,7 +234,7 @@ vector3 Normalize_Vector3(vector3 Vector)
 static inline
 vector4 Normalize_Vector4(vector4 Vector)
 {
-   vector4 Result = {0};
+   vector4 Result = {0, 0, 0, 0};
 
    float Norm = Length_Vector4(Vector);
    if(Norm != 0.0f)
@@ -274,12 +282,12 @@ static inline
 matrix4 Identity_Matrix4(void)
 {
    matrix4 Result =
-   {{
+   {
       1, 0, 0, 0,
       0, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -288,12 +296,12 @@ static inline
 matrix4 Translate_Matrix4(float X, float Y, float Z)
 {
    matrix4 Result =
-   {{
+   {
       1, 0, 0, 0,
       0, 1, 0, 0,
       0, 0, 1, 0,
       X, Y, Z, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -302,12 +310,12 @@ static inline
 matrix4 Scale_Matrix4(float X, float Y, float Z)
 {
    matrix4 Result =
-   {{
+   {
       X, 0, 0, 0,
       0, Y, 0, 0,
       0, 0, Z, 0,
       0, 0, 0, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -320,12 +328,12 @@ matrix4 Rotate_X_Matrix4(float Turns)
    float N = -S;
 
    matrix4 Result =
-   {{
+   {
       1, 0, 0, 0,
       0, C, S, 0,
       0, N, C, 0,
       0, 0, 0, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -338,12 +346,12 @@ matrix4 Rotate_Y_Matrix4(float Turns)
    float N = -S;
 
    matrix4 Result =
-   {{
+   {
       C, 0, N, 0,
       0, 1, 0, 0,
       S, 0, C, 0,
       0, 0, 0, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -356,12 +364,12 @@ matrix4 Rotate_Z_Matrix4(float Turns)
    float N = -S;
 
    matrix4 Result =
-   {{
+   {
       C, S, 0, 0,
       N, C, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1,
-   }};
+   };
 
    return(Result);
 }
@@ -381,12 +389,12 @@ matrix4 Look_At_Matrix4(vector3 Eye, vector3 Target)
    float TF = -Dot_Vector3(F, Eye);
 
    matrix4 Result =
-   {{
+   {
       R.E1, U.E1, -F.E1, 0,
       R.E2, U.E2, -F.E2, 0,
       R.E3, U.E3, -F.E3, 0,
       TR,   TU,   -TF,   1,
-   }};
+   };
 
    return(Result);
 }
@@ -403,12 +411,26 @@ matrix4 Perspective_Matrix4(float Width, float Height, float Near, float Far)
    float E = -1;
 
    matrix4 Result =
-   {{
+   {
       A, 0, 0, 0,
       0, B, 0, 0,
       0, 0, C, E,
       0, 0, D, 0,
-   }};
+   };
 
    return(Result);
 }
+
+#if __cplusplus
+static inline vector2 operator+(vector2 A, vector2 B) { return Add_Vector2(A, B); }
+static inline vector2 operator-(vector2 A, vector2 B) { return Sub_Vector2(A, B); }
+static inline vector2 operator*(vector2 V, float S)   { return Mul_Vector2(V, S); }
+
+static inline vector3 operator+(vector3 A, vector3 B) { return Add_Vector3(A, B); }
+static inline vector3 operator-(vector3 A, vector3 B) { return Sub_Vector3(A, B); }
+static inline vector3 operator*(vector3 V, float S)   { return Mul_Vector3(V, S); }
+
+static inline vector4 operator+(vector4 A, vector4 B) { return Add_Vector4(A, B); }
+static inline vector4 operator-(vector4 A, vector4 B) { return Sub_Vector4(A, B); }
+static inline vector4 operator*(vector4 V, float S)   { return Mul_Vector4(V, S); }
+#endif

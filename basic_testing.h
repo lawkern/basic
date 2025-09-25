@@ -9,13 +9,13 @@ typedef struct {
    int Pass_Count;
 } test_context;
 
-#define Start_Test(T) Start_Test_With_Label(T, (char *)__func__)
+#define Start_Test(T) Start_Test_With_Label((T), (char *)__func__)
 
 static inline
 void Start_Test_With_Label(test_context *T, char *Label)
 {
-   printf("[%s] %s:", T->File_Name, Label);
    T->Test_Count++;
+   printf("[%s] %04d %s:", T->File_Name, T->Test_Count, Label);
 }
 
 #define Assert(T, Condition)                                            \
