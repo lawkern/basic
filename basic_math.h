@@ -64,6 +64,15 @@ float Square_Root(float Value)
 }
 
 static inline
+vector2 Add_Vector2(vector2 A, vector2 B)
+{
+   vector2 Result;
+   Result.E1 = A.E1 + B.E1;
+   Result.E2 = A.E2 + B.E2;
+
+   return(Result);
+}
+static inline
 vector3 Add_Vector3(vector3 A, vector3 B)
 {
    vector3 Result;
@@ -73,7 +82,27 @@ vector3 Add_Vector3(vector3 A, vector3 B)
 
    return(Result);
 }
+static inline
+vector4 Add_Vector4(vector4 A, vector4 B)
+{
+   vector4 Result;
+   Result.E1 = A.E1 + B.E1;
+   Result.E2 = A.E2 + B.E2;
+   Result.E3 = A.E3 + B.E3;
+   Result.E4 = A.E4 + B.E4;
 
+   return(Result);
+}
+
+static inline
+vector2 Sub_Vector2(vector2 A, vector2 B)
+{
+   vector2 Result;
+   Result.E1 = A.E1 - B.E1;
+   Result.E2 = A.E2 - B.E2;
+
+   return(Result);
+}
 static inline
 vector3 Sub_Vector3(vector3 A, vector3 B)
 {
@@ -84,7 +113,27 @@ vector3 Sub_Vector3(vector3 A, vector3 B)
 
    return(Result);
 }
+static inline
+vector4 Sub_Vector4(vector4 A, vector4 B)
+{
+   vector4 Result;
+   Result.E1 = A.E1 - B.E1;
+   Result.E2 = A.E2 - B.E2;
+   Result.E3 = A.E3 - B.E3;
+   Result.E4 = A.E4 - B.E4;
 
+   return(Result);
+}
+
+static inline
+vector2 Mul_Vector2(vector2 Vector, float Scalar)
+{
+   vector2 Result;
+   Result.E1 = Vector.E1 * Scalar;
+   Result.E2 = Vector.E2 * Scalar;
+
+   return(Result);
+}
 static inline
 vector3 Mul_Vector3(vector3 Vector, float Scalar)
 {
@@ -95,21 +144,70 @@ vector3 Mul_Vector3(vector3 Vector, float Scalar)
 
    return(Result);
 }
+static inline
+vector4 Mul_Vector4(vector4 Vector, float Scalar)
+{
+   vector4 Result;
+   Result.E1 = Vector.E1 * Scalar;
+   Result.E2 = Vector.E2 * Scalar;
+   Result.E3 = Vector.E3 * Scalar;
+   Result.E4 = Vector.E4 * Scalar;
 
+   return(Result);
+}
+
+static inline
+float Length_Squared_Vector2(vector2 Vector)
+{
+   float Result = Square(Vector.E1) + Square(Vector.E2);
+   return(Result);
+}
 static inline
 float Length_Squared_Vector3(vector3 Vector)
 {
    float Result = Square(Vector.E1) + Square(Vector.E2) + Square(Vector.E3);
    return(Result);
 }
+static inline
+float Length_Squared_Vector4(vector4 Vector)
+{
+   float Result = Square(Vector.E1) + Square(Vector.E2) + Square(Vector.E3) + Square(Vector.E4);
+   return(Result);
+}
 
+static inline
+float Length_Vector2(vector2 Vector)
+{
+   float Result = Square_Root(Length_Squared_Vector2(Vector));
+   return(Result);
+}
 static inline
 float Length_Vector3(vector3 Vector)
 {
    float Result = Square_Root(Length_Squared_Vector3(Vector));
    return(Result);
 }
+static inline
+float Length_Vector4(vector4 Vector)
+{
+   float Result = Square_Root(Length_Squared_Vector4(Vector));
+   return(Result);
+}
 
+static inline
+vector2 Normalize_Vector2(vector2 Vector)
+{
+   vector2 Result = {0};
+
+   float Norm = Length_Vector2(Vector);
+   if(Norm != 0.0f)
+   {
+      Result.E1 = Vector.E1 / Norm;
+      Result.E2 = Vector.E2 / Norm;
+   }
+
+   return(Result);
+}
 static inline
 vector3 Normalize_Vector3(vector3 Vector)
 {
@@ -125,11 +223,39 @@ vector3 Normalize_Vector3(vector3 Vector)
 
    return(Result);
 }
+static inline
+vector4 Normalize_Vector4(vector4 Vector)
+{
+   vector4 Result = {0};
 
+   float Norm = Length_Vector4(Vector);
+   if(Norm != 0.0f)
+   {
+      Result.E1 = Vector.E1 / Norm;
+      Result.E2 = Vector.E2 / Norm;
+      Result.E3 = Vector.E3 / Norm;
+      Result.E4 = Vector.E4 / Norm;
+   }
+
+   return(Result);
+}
+
+static inline
+float Dot_Vector2(vector2 A, vector2 B)
+{
+   float Result = A.E1*B.E1 + A.E2*B.E2;
+   return(Result);
+}
 static inline
 float Dot_Vector3(vector3 A, vector3 B)
 {
    float Result = A.E1*B.E1 + A.E2*B.E2 + A.E3*B.E3;
+   return(Result);
+}
+static inline
+float Dot_Vector4(vector4 A, vector4 B)
+{
+   float Result = A.E1*B.E1 + A.E2*B.E2 + A.E3*B.E3 + A.E4*B.E4;
    return(Result);
 }
 
