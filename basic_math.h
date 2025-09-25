@@ -21,8 +21,6 @@ typedef struct {
    float E4;
 } vector4;
 
-// NOTE: Matrices store elements in column-major order, e.g. E00, E10, E20
-// represents
 typedef struct {
    float E00, E10;
    float E01, E11;
@@ -160,6 +158,37 @@ vector4 Mul_Vector4(vector4 Vector, float Scalar)
    Result.E2 = Vector.E2 * Scalar;
    Result.E3 = Vector.E3 * Scalar;
    Result.E4 = Vector.E4 * Scalar;
+
+   return(Result);
+}
+
+static inline
+vector2 Neg_Vector2(vector2 Vector)
+{
+   vector2 Result;
+   Result.E1 = -Vector.E1;
+   Result.E2 = -Vector.E2;
+
+   return(Result);
+}
+static inline
+vector3 Neg_Vector3(vector3 Vector)
+{
+   vector3 Result;
+   Result.E1 = -Vector.E1;
+   Result.E2 = -Vector.E2;
+   Result.E3 = -Vector.E3;
+
+   return(Result);
+}
+static inline
+vector4 Neg_Vector4(vector4 Vector)
+{
+   vector4 Result;
+   Result.E1 = -Vector.E1;
+   Result.E2 = -Vector.E2;
+   Result.E3 = -Vector.E3;
+   Result.E4 = -Vector.E4;
 
    return(Result);
 }
@@ -423,14 +452,34 @@ matrix4 Perspective_Matrix4(float Width, float Height, float Near, float Far)
 
 #if __cplusplus
 static inline vector2 operator+(vector2 A, vector2 B) { return Add_Vector2(A, B); }
-static inline vector2 operator-(vector2 A, vector2 B) { return Sub_Vector2(A, B); }
-static inline vector2 operator*(vector2 V, float S)   { return Mul_Vector2(V, S); }
-
 static inline vector3 operator+(vector3 A, vector3 B) { return Add_Vector3(A, B); }
-static inline vector3 operator-(vector3 A, vector3 B) { return Sub_Vector3(A, B); }
-static inline vector3 operator*(vector3 V, float S)   { return Mul_Vector3(V, S); }
-
 static inline vector4 operator+(vector4 A, vector4 B) { return Add_Vector4(A, B); }
+
+static inline vector2 operator-(vector2 A, vector2 B) { return Sub_Vector2(A, B); }
+static inline vector3 operator-(vector3 A, vector3 B) { return Sub_Vector3(A, B); }
 static inline vector4 operator-(vector4 A, vector4 B) { return Sub_Vector4(A, B); }
-static inline vector4 operator*(vector4 V, float S)   { return Mul_Vector4(V, S); }
+
+static inline vector2 operator*(vector2 V, float S) { return Mul_Vector2(V, S); }
+static inline vector3 operator*(vector3 V, float S) { return Mul_Vector3(V, S); }
+static inline vector4 operator*(vector4 V, float S) { return Mul_Vector4(V, S); }
+
+static inline vector2 operator*(float S, vector2 V) { return Mul_Vector2(V, S); }
+static inline vector3 operator*(float S, vector3 V) { return Mul_Vector3(V, S); }
+static inline vector4 operator*(float S, vector4 V) { return Mul_Vector4(V, S); }
+
+static inline vector2 operator-(vector2 V) { return Neg_Vector2(V); }
+static inline vector3 operator-(vector3 V) { return Neg_Vector3(V); }
+static inline vector4 operator-(vector4 V) { return Neg_Vector4(V); }
+
+static inline vector2 &operator+=(vector2 &A, vector2 B) { A = Add_Vector2(A, B); return(A); }
+static inline vector3 &operator+=(vector3 &A, vector3 B) { A = Add_Vector3(A, B); return(A); }
+static inline vector4 &operator+=(vector4 &A, vector4 B) { A = Add_Vector4(A, B); return(A); }
+
+static inline vector2 &operator-=(vector2 &A, vector2 B) { A = Sub_Vector2(A, B); return(A); }
+static inline vector3 &operator-=(vector3 &A, vector3 B) { A = Sub_Vector3(A, B); return(A); }
+static inline vector4 &operator-=(vector4 &A, vector4 B) { A = Sub_Vector4(A, B); return(A); }
+
+static inline vector2 &operator*=(vector2 &V, float S) { V = Mul_Vector2(V, S); return(V); }
+static inline vector3 &operator*=(vector3 &V, float S) { V = Mul_Vector3(V, S); return(V); }
+static inline vector4 &operator*=(vector4 &V, float S) { V = Mul_Vector4(V, S); return(V); }
 #endif

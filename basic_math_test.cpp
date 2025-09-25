@@ -22,6 +22,26 @@ static void Test_Vector2_Overloads(test_context *T)
    Assert(T, E.E1 == 4.0f);
    Assert(T, E.E2 == 8.0f);
 
+   vector2 F = 4.0f * A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+
+   vector2 N = -F;
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+
+   F += A;
+   Assert(T, F.E1 == 5.0f);
+   Assert(T, F.E2 == 10.0f);
+
+   F -= A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+
+   F *= 2.0f;
+   Assert(T, F.E1 == 8.0f);
+   Assert(T, F.E2 == 16.0f);
+
    End_Test(T);
 }
 
@@ -46,6 +66,31 @@ static void Test_Vector3_Overloads(test_context *T)
    Assert(T, E.E1 == 4.0f);
    Assert(T, E.E2 == 8.0f);
    Assert(T, E.E3 == 12.0f);
+
+   vector3 F = 4.0f * A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+   Assert(T, F.E3 == 12.0f);
+
+   vector3 N = -F;
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+   Assert(T, N.E3 == -12.0f);
+
+   F += A;
+   Assert(T, F.E1 == 5.0f);
+   Assert(T, F.E2 == 10.0f);
+   Assert(T, F.E3 == 15.0f);
+
+   F -= A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+   Assert(T, F.E3 == 12.0f);
+
+   F *= 2.0f;
+   Assert(T, F.E1 == 8.0f);
+   Assert(T, F.E2 == 16.0f);
+   Assert(T, F.E3 == 24.0f);
 
    End_Test(T);
 }
@@ -73,6 +118,36 @@ static void Test_Vector4_Overloads(test_context *T)
    Assert(T, E.E2 == 8.0f);
    Assert(T, E.E3 == 12.0f);
    Assert(T, E.E4 == 16.0f);
+
+   vector4 F = 4.0f * A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+   Assert(T, F.E3 == 12.0f);
+   Assert(T, F.E4 == 16.0f);
+
+   vector4 N = -F;
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+   Assert(T, N.E3 == -12.0f);
+   Assert(T, N.E4 == -16.0f);
+
+   F += A;
+   Assert(T, F.E1 == 5.0f);
+   Assert(T, F.E2 == 10.0f);
+   Assert(T, F.E3 == 15.0f);
+   Assert(T, F.E4 == 20.0f);
+
+   F -= A;
+   Assert(T, F.E1 == 4.0f);
+   Assert(T, F.E2 == 8.0f);
+   Assert(T, F.E3 == 12.0f);
+   Assert(T, F.E4 == 16.0f);
+
+   F *= 2.0f;
+   Assert(T, F.E1 == 8.0f);
+   Assert(T, F.E2 == 16.0f);
+   Assert(T, F.E3 == 24.0f);
+   Assert(T, F.E4 == 32.0f);
 
    End_Test(T);
 }

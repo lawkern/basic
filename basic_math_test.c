@@ -22,6 +22,10 @@ static void Test_Vector2_Arithmetic(test_context *T)
    Assert(T, E.E1 == 4.0f);
    Assert(T, E.E2 == 8.0f);
 
+   vector2 N = Neg_Vector2(E);
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+
    vector2 Norm = Normalize_Vector2(A);
    Assert(T, Length_Vector2(Norm) > 0.99999f);
    Assert(T, Length_Vector2(Norm) < 1.00001f);
@@ -50,6 +54,11 @@ static void Test_Vector3_Arithmetic(test_context *T)
    Assert(T, E.E1 == 4.0f);
    Assert(T, E.E2 == 8.0f);
    Assert(T, E.E3 == 12.0f);
+
+   vector3 N = Neg_Vector3(E);
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+   Assert(T, N.E3 == -12.0f);
 
    vector3 Norm = Normalize_Vector3(A);
    Assert(T, Length_Vector3(Norm) > 0.99999f);
@@ -82,6 +91,12 @@ static void Test_Vector4_Arithmetic(test_context *T)
    Assert(T, E.E2 == 8.0f);
    Assert(T, E.E3 == 12.0f);
    Assert(T, E.E4 == 16.0f);
+
+   vector4 N = Neg_Vector4(E);
+   Assert(T, N.E1 == -4.0f);
+   Assert(T, N.E2 == -8.0f);
+   Assert(T, N.E3 == -12.0f);
+   Assert(T, N.E4 == -16.0f);
 
    vector4 Norm = Normalize_Vector4(A);
    Assert(T, Length_Vector4(Norm) > 0.99999f);
